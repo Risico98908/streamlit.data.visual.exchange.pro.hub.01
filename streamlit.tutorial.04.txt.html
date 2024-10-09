@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Example Streamlit App</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            margin: 20px;
+        }
+        h1, h2, h3 {
+            color: #333;
+        }
+        pre {
+            background-color: #f4f4f4;
+            padding: 10px;
+            border: 1px solid #ccc;
+            overflow-x: auto;
+        }
+        code {
+            background-color: #eee;
+            padding: 2px 4px;
+            border-radius: 4px;
+        }
+        .highlight {
+            color: #d14;
+        }
+    </style>
+</head>
+<body>
+
+<h1>Example Streamlit App</h1>
+<p>This app allows users to interact with data, visualize it using different charts, and upload files. It includes several interactive elements and dynamically updates based on user input.</p>
+
+<pre><code class="language-python">import streamlit as st
+import pandas as pd
+import numpy as np
+import matplotlib.pyplot as plt
+
+# App Title
+st.title("Interactive Data Dashboard")
+
+# Sidebar for User Input
+st.sidebar.header("Filter Data")
+
+# Text Input in Sidebar
+name = st.sidebar.text_input("Enter your name:")
+
+# Dropdown selection (selectbox)
+category = st.sidebar.selectbox(
+    "Select a category:",
+    options=["A", "B", "C", "D"]
+)
+
+# Slider to filter values
+value_filter = st.sidebar.slider("Filter by value:", min_value=-10.0, max_value=10.0, value=(-5.0, 5.0))
+
+# Upload a CSV File
+uploaded_file = st.sidebar.file_uploader("Upload a CSV file", type=["csv"])
+
+# Display simple text
+st.text(f"Hello {name}, welcome to the dashboard!")
+
+# Markdown formatted text
+st.markdown("**Here's an interactive data display**")
+
+# Show a sample table if no file is uploaded
+if uploaded_file is None:
+    st.subheader("Default Dataset")
+    # Generate random data for demonstration
+    data = pd.DataFrame({
+        'Category': np.random.choice(['A', 'B', 'C'], size=100),
+        'Value': np.random.randn(100),
+        'Date': pd.date_range(start='1/1/2023', periods=100)
+    })
+else:
+    # Use uploaded file if available
+    data = pd.read_csv(uploaded_file)
+
+# Filter data based on the slider and category selection
+filtered_data = data[
+    (data['Category'] == category) &
+    (data['Value'] >= value_filter[0]) &
+    (data['Value'] <= value_filter[1])
+]
+
+# Display data using st.dataframe and st.table
+st.dataframe(filtered_data, use_container_width=True)
+st.subheader("Static Table View")
+st.table(filtered_data.head())
+
+# Line chart
+st.subheader("Line Chart of Values Over Time")
+st.line_chart(filtered_data.set_index('Date')['Value'])
+
+# Bar chart
+st.subheader("Bar Chart of Categories")
+st.bar_chart(filtered_data['Category'].value_counts())
+
+# Area chart
+st.subheader("Area Chart of Value Distribution")
+st.area_chart(filtered_data.set_index('Date')['Value'])
+
+# Display code sample
+st.code('''
+# Example code snippet
+import pandas as pd
+import numpy as np
+data = pd.DataFrame({
+    'Category': np.random.choice(['A', 'B', 'C'], size=100),
+    'Value': np.random.randn(100),
+    'Date': pd.date_range(start='1/1/2023', periods=100)
+})
+''')
+
+# Button to show additional insights
+if st.button("Show Summary"):
+    st.write(filtered_data.describe())
+
+# Image and audio demonstration
+st.subheader("Image and Audio Demo")
+st.image("https://placekitten.com/400/300", caption="Random Kitten Image")
+st.audio("https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3")
+
+# Simple text
+st.text("Thank you for exploring the dashboard!")
+</code></pre>
+
+<h2>Explanation of Streamlit Functions Used:</h2>
+<ol>
+    <li><code>st.write()</code> – Used to display text and Pandas summaries.</li>
+    <li><code>st.title()</code> – Displays the main title of the app.</li>
+    <li><code>st.header()</code> – Adds headers to structure the app sections.</li>
+    <li><code>st.subheader()</code> – Used for smaller section headers.</li>
+    <li><code>st.text()</code> – Simple text display for welcome and thank-you messages.</li>
+    <li><code>st.markdown()</code> – Displays Markdown-formatted text for emphasis.</li>
+    <li><code>st.code()</code> – Displays a block of formatted code.</li>
+    <li><code>st.dataframe()</code> – Displays a Pandas DataFrame interactively.</li>
+    <li><code>st.table()</code> – Displays a static version of the data.</li>
+    <li><code>st.line_chart()</code> – Renders a line chart to visualize data.</li>
+    <li><code>st.bar_chart()</code> – Renders a bar chart to show categorical counts.</li>
+    <li><code>st.area_chart()</code> – Displays an area chart for value trends.</li>
+    <li><code>st.selectbox()</code> – Dropdown in the sidebar for category filtering.</li>
+    <li><code>st.slider()</code> – Slider widget for selecting a range of values.</li>
+    <li><code>st.text_input()</code> – Accepts user input in the sidebar.</li>
+    <li><code>st.file_uploader()</code> – Allows file upload (CSV) for data analysis.</li>
+    <li><code>st.button()</code> – Button to trigger summary statistics.</li>
+    <li><code>st.sidebar()</code> – Adds a sidebar for user inputs and controls.</li>
+    <li><code>st.image()</code> – Displays an image with a caption.</li>
+    <li><code>st.audio()</code> – Plays an audio file.</li>
+</ol>
+
+<h2>Usage:</h2>
+<ol>
+    <li>The app begins with a <strong>title</strong> and welcome <strong>text</strong> for the user.</li>
+    <li>Users can upload a CSV file or work with a default dataset.</li>
+    <li>The data is filtered using user-selected <strong>sliders</strong> and <strong>dropdowns</strong> in the <strong>sidebar</strong>.</li>
+    <li>The filtered data is displayed in both <strong>interactive tables</strong> and static <strong>tables</strong>.</li>
+    <li>Data visualizations are provided via <strong>line charts</strong>, <strong>bar charts</strong>, and <strong>area charts</strong>.</li>
+    <li>A button is available to display summary statistics for the filtered data.</li>
+    <li>The app ends with a fun demonstration of displaying an <strong>image</strong> and playing an <strong>audio</strong> file.</li>
+</ol>
+
+<p>This example combines data interactivity, visualization, and media handling using the core Streamlit functions.</p>
+
+</body>
+</html>

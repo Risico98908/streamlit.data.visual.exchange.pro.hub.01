@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Weather Monitoring Dashboard</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+        h1, h2, h3 {
+            color: #333;
+        }
+        pre {
+            background-color: #f4f4f4;
+            padding: 10px;
+            overflow-x: auto;
+        }
+        code {
+            font-family: 'Courier New', Courier, monospace;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Weather Monitoring Dashboard</h1>
+
+    <h2>Upload Your Weather Data</h2>
+
+    <h3>Upload a CSV file</h3>
+    <p>Choose a CSV file</p>
+
+    <h3>User Interaction</h3>
+    <p>Hello <span id="userName"></span>, let's analyze some weather data!</p>
+
+    <h3>Instructions</h3>
+    <p>Please upload a CSV file with weather data (temperature, humidity, wind speed).</p>
+
+    <h3>Code Example</h3>
+    <pre><code>
+import streamlit as st
+import pandas as pd
+import numpy as np
+from PIL import Image
+
+# Title of the App
+st.title("Weather Monitoring Dashboard")
+
+# Header for data upload
+st.header("Upload Your Weather Data")
+
+# Subheader for file uploading
+st.subheader("Upload a CSV file")
+
+# File Uploader
+uploaded_file = st.file_uploader("Choose a CSV file", type=["csv"])
+
+# Sidebar Text Input for User Name
+user_name = st.sidebar.text_input("Enter your name:")
+
+# Display Welcome Message
+st.text(f"Hello {user_name}, let's analyze some weather data!")
+
+# Markdown Instruction
+st.markdown("### Instructions: Please upload a CSV file with weather data (temperature, humidity, wind speed).")
+
+# If file is uploaded
+if uploaded_file is not None:
+    data = pd.read_csv(uploaded_file)
+
+    # Sidebar Filters
+    st.sidebar.header("Filter Data")
+
+    # Selectbox for column filter
+    column_filter = st.sidebar.selectbox("Choose a column to filter", options=data.columns)
+
+    # Slider for numeric filtering
+    filter_value = st.sidebar.slider(f"Filter {column_filter}", min_value=int(data[column_filter].min()), max_value=int(data[column_filter].max()))
+
+    # Filter the DataFrame
+    filtered_data = data[data[column_filter] >= filter_value]
+
+    # Display the filtered data
+    st.subheader(f"Filtered {column_filter} Data")
+    st.dataframe(filtered_data)
+
+    # Static Table
+    st.table(filtered_data.head())
+
+    # Line Chart for Temperature
+    st.line_chart(data["Temperature"])
+
+    # Bar Chart for Humidity
+    st.bar_chart(data["Humidity"])
+
+    # Area Chart for Wind Speed
+    st.area_chart(data["Wind Speed"])
+
+    # Button to show summary
+    if st.button("Show Summary"):
+        st.write(filtered_data.describe())
+
+    # Displaying Code Example
+    st.code('''
+    # Filter data based on column and value
+    filtered_data = data[data[column_filter] >= filter_value]
+    ''')
+
+    # Image Display (Placeholder)
+    image = Image.open("weather_icon.png")
+    st.image(image, caption="Weather Icon", use_column_width=True)
+
+    # Audio for weather alert (dummy link)
+    st.audio("https://www.soundhelix.com/examples/mp3/SoundHelix-Song-3.mp3")
+
+else:
+    st.warning("Please upload a CSV file to proceed.")
+
+# Footer
+st.text("Thank you for using the Weather Monitoring Dashboard.")
+    </code></pre>
+
+    <h3>Script Overview</h3>
+    <ol>
+        <li><strong>User Interaction:</strong> Users can upload weather data in CSV format, filter it dynamically, and view the results through charts and tables.</li>
+        <li><strong>Data Visualization:</strong> Multiple visualizations like line charts, bar charts, and area charts help display temperature, humidity, and wind speed trends.</li>
+        <li><strong>Enhanced Media:</strong> The app uses an image to represent weather conditions and plays an audio file for potential weather alerts.</li>
+    </ol>
+
+</body>
+</html>

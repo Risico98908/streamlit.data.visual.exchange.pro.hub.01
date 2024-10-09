@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Getting Started with Streamlit</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            margin: 20px;
+        }
+        h1, h2, h3, h4 {
+            color: #333;
+        }
+        code {
+            background-color: #f4f4f4;
+            padding: 2px 4px;
+            border-radius: 3px;
+        }
+        pre {
+            background-color: #f4f4f4;
+            padding: 10px;
+            border-radius: 3px;
+            overflow: auto;
+        }
+    </style>
+</head>
+<body>
+
+<h1>Getting Started with <strong>Streamlit</strong></h1>
+<p>Here is a basic tutorial on how to get started with <strong>Streamlit</strong>, a popular framework for building web apps with Python:</p>
+
+<h3>1. Install Streamlit</h3>
+<p>To start using Streamlit, you need to install it first. Run the following command in your terminal or prompt:</p>
+<pre><code>pip install streamlit</code></pre>
+
+<h3>2. Create a Simple App</h3>
+<p>Create a new Python file, for example, <code>app.py</code>, and add the following code:</p>
+<pre><code>import streamlit as st
+
+# Title of the web app
+st.title("Welcome to Streamlit")
+
+# Header
+st.header("This is a simple app")
+
+# Text input
+name = st.text_input("Enter your name:")
+
+# Slider
+age = st.slider("Select your age:", 0, 100)
+
+# Display user input
+if st.button("Submit"):
+    st.write(f"Hello {name}, you are {age} years old!")
+</code></pre>
+
+<h3>3. Run the App</h3>
+<p>To run your Streamlit app, use the following command:</p>
+<pre><code>streamlit run app.py</code></pre>
+<p>This will open the app in your default web browser at <code>http://localhost:8501</code>.</p>
+
+<h3>4. Basic Widgets</h3>
+<p>Streamlit provides a variety of widgets for user interaction. Here are some common ones:</p>
+
+<h4>4.1. Text Input</h4>
+<pre><code>name = st.text_input("Enter your name:")
+st.write(f"Your name is {name}")
+</code></pre>
+
+<h4>4.2. Slider</h4>
+<pre><code>age = st.slider("Select your age:", 0, 100)
+st.write(f"You are {age} years old")
+</code></pre>
+
+<h4>4.3. Button</h4>
+<pre><code>if st.button("Click me"):
+    st.write("Button clicked!")
+</code></pre>
+
+<h4>4.4. Checkbox</h4>
+<pre><code>if st.checkbox("Show more info"):
+    st.write("Here is some more information...")
+</code></pre>
+
+<h4>4.5. Select Box</h4>
+<pre><code>option = st.selectbox("Select a number:", [1, 2, 3, 4, 5])
+st.write(f"You selected {option}")
+</code></pre>
+
+<h4>4.6. File Uploader</h4>
+<pre><code>uploaded_file = st.file_uploader("Choose a file")
+if uploaded_file is not None:
+    st.write("File uploaded successfully!")
+</code></pre>
+
+<h3>5. Displaying Data</h3>
+<p>You can display data in the form of tables, charts, and even code:</p>
+
+<h4>5.1. Displaying DataFrames</h4>
+<pre><code>import pandas as pd
+
+data = {'Name': ['John', 'Anna', 'Peter'],
+        'Age': [28, 24, 35]}
+df = pd.DataFrame(data)
+st.dataframe(df)
+</code></pre>
+
+<h4>5.2. Plotting Charts</h4>
+<p>Streamlit supports popular plotting libraries such as <strong>Matplotlib</strong>, <strong>Plotly</strong>, and <strong>Altair</strong>:</p>
+<pre><code>import matplotlib.pyplot as plt
+
+fig, ax = plt.subplots()
+ax.plot([1, 2, 3], [10, 20, 30])
+st.pyplot(fig)
+</code></pre>
+
+<h3>6. Layouts</h3>
+<p>You can arrange elements in your Streamlit app using <code>columns</code> or <code>containers</code>:</p>
+
+<h4>6.1. Columns</h4>
+<pre><code>col1, col2 = st.columns(2)
+
+col1.write("This is column 1")
+col2.write("This is column 2")
+</code></pre>
+
+<h4>6.2. Containers</h4>
+<pre><code>with st.container():
+    st.write("This is inside a container")
+</code></pre>
+
+<h3>7. Deploying the App</h3>
+<p>Streamlit can be deployed on services like <strong>Streamlit Cloud</strong>, <strong>Heroku</strong>, or <strong>AWS</strong>.</p>
+<p>To deploy on <strong>Streamlit Cloud</strong>, follow these steps:</p>
+<ol>
+    <li>Push your code to a public GitHub repository.</li>
+    <li>Go to <a href="https://share.streamlit.io/" target="_blank">Streamlit Cloud</a>.</li>
+    <li>Sign in and connect your GitHub account.</li>
+    <li>Select the repository and deploy the app.</li>
+</ol>
+
+<hr>
+
+<p>This is a basic overview of how to get started with Streamlit. You can extend this to build complex data dashboards, machine learning model interfaces, or interactive web applications.</p>
+
+
+</body>
+</html>

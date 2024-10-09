@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Streamlit Main Functions</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            line-height: 1.6;
+        }
+        h1, h2, h3 {
+            color: #003399;
+        }
+        h1 {
+            text-align: center;
+        }
+        section {
+            margin-bottom: 30px;
+        }
+        ul {
+            margin: 0;
+            padding-left: 20px;
+        }
+        ul ul {
+            padding-left: 20px;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Streamlit Main Functions</h1>
+
+    <!-- PAGE ELEMENTS Section -->
+    <section>
+        <h2>PAGE ELEMENTS</h2>
+        <h3>Write and Magic</h3>
+        <ul>
+            <li>st.write</li>
+            <li>st.write_stream</li>
+            <li>magic</li>
+        </ul>
+
+        <h3>Text Elements</h3>
+        <ul>
+            <li>st.title</li>
+            <li>st.header</li>
+            <li>st.subheader</li>
+            <li>st.markdown</li>
+        </ul>
+    </section>
+
+    <!-- FORMATTED TEXT Section -->
+    <section>
+        <h2>FORMATTED TEXT</h2>
+        <ul>
+            <li>st.caption</li>
+            <li>st.code</li>
+            <li>st.divider</li>
+            <li>st.echo</li>
+            <li>st.latex</li>
+            <li>st.text</li>
+        </ul>
+    </section>
+
+    <!-- UTILITIES Section -->
+    <section>
+        <h2>UTILITIES</h2>
+        <ul>
+            <li>st.html</li>
+        </ul>
+    </section>
+
+    <!-- DATA ELEMENTS Section -->
+    <section>
+        <h2>DATA ELEMENTS</h2>
+        <ul>
+            <li>st.dataframe</li>
+            <li>st.data_editor</li>
+            <li>st.column_config</li>
+            <li>st.table</li>
+            <li>st.metric</li>
+            <li>st.json</li>
+        </ul>
+    </section>
+
+    <!-- CHART ELEMENTS Section -->
+    <section>
+        <h2>CHART ELEMENTS</h2>
+
+        <h3>Simple</h3>
+        <ul>
+            <li>st.area_chart</li>
+            <li>st.bar_chart</li>
+            <li>st.line_chart</li>
+            <li>st.map</li>
+            <li>st.scatter_chart</li>
+        </ul>
+
+        <h3>Advanced</h3>
+        <ul>
+            <li>st.altair_chart</li>
+            <li>st.bokeh_chart</li>
+            <li>st.graphviz_chart</li>
+            <li>st.plotly_chart</li>
+            <li>st.pydeck_chart</li>
+            <li>st.pyplot</li>
+            <li>st.vega_lite_chart</li>
+        </ul>
+    </section>
+
+    <!-- INPUT WIDGETS Section -->
+    <section>
+        <h2>INPUT WIDGETS</h2>
+
+        <h3>Buttons</h3>
+        <ul>
+            <li>st.button</li>
+            <li>st.download_button</li>
+            <li>st.feedback</li>
+            <li>st.form_submit_button</li>
+            <li>st.link_button</li>
+            <li>st.page_link</li>
+        </ul>
+
+        <h3>Selections</h3>
+        <ul>
+            <li>st.checkbox</li>
+            <li>st.color_picker</li>
+            <li>st.multiselect</li>
+            <li>st.radio</li>
+            <li>st.selectbox</li>
+            <li>st.select_slider</li>
+            <li>st.toggle</li>
+        </ul>
+
+        <h3>Numeric Inputs</h3>
+        <ul>
+            <li>st.number_input</li>
+            <li>st.slider</li>
+        </ul>
+
+        <h3>Date & Time</h3>
+        <ul>
+            <li>st.date_input</li>
+            <li>st.time_input</li>
+        </ul>
+
+        <h3>Text Inputs</h3>
+        <ul>
+            <li>st.chat_input</li>
+            <li>st.text_area</li>
+            <li>st.text_input</li>
+        </ul>
+    </section>
+
+    <!-- MEDIA & FILES Section -->
+    <section>
+        <h2>MEDIA & FILES</h2>
+        <ul>
+            <li>st.audio_input</li>
+            <li>st.camera_input</li>
+            <li>st.file_uploader</li>
+        </ul>
+    </section>
+
+    <!-- MEDIA ELEMENTS Section -->
+    <section>
+        <h2>MEDIA ELEMENTS</h2>
+        <ul>
+            <li>st.audio</li>
+            <li>st.image</li>
+            <li>st.logo</li>
+            <li>st.video</li>
+        </ul>
+    </section>
+
+    <!-- LAYOUTS AND CONTAINERS Section -->
+    <section>
+        <h2>LAYOUTS AND CONTAINERS</h2>
+        <ul>
+            <li>st.columns</li>
+            <li>st.container</li>
+            <li>st.dialog</li>
+            <li>st.empty</li>
+            <li>st.expander</li>
+            <li>st.form</li>
+            <li>st.popover</li>
+            <li>st.sidebar</li>
+            <li>st.tabs</li>
+        </ul>
+    </section>
+
+    <!-- STATUS ELEMENTS Section -->
+    <section>
+        <h2>STATUS ELEMENTS</h2>
+
+        <h3>Callouts</h3>
+        <ul>
+            <li>st.success</li>
+            <li>st.info</li>
+            <li>st.warning</li>
+            <li>st.error</li>
+            <li>st.exception</li>
+        </ul>
+
+        <h3>Other</h3>
+        <ul>
+            <li>st.progress</li>
+            <li>st.spinner</li>
+            <li>st.status</li>
+            <li>st.toast</li>
+            <li>st.balloons</li>
+            <li>st.snow</li>
+        </ul>
+    </section>
+
+    <!-- THIRD-PARTY COMPONENTS Section -->
+    <section>
+        <h2>THIRD-PARTY COMPONENTS</h2>
+
+        <h3>Application Logic</h3>
+        <ul>
+            <li>st.navigation</li>
+            <li>st.Page</li>
+            <li>st.page_link</li>
+            <li>st.switch_page</li>
+        </ul>
+
+        <h3>Execution Flow</h3>
+        <ul>
+            <li>Caching and state</li>
+        </ul>
+
+        <h3>Connections and Secrets</h3>
+        <ul>
+            <li>st.secrets</li>
+            <li>st.connection</li>
+            <li>SnowflakeConnection</li>
+            <li>SQLConnection</li>
+            <li>BaseConnection</li>
+            <li>SnowparkConnection</li>
+        </ul>
+
+        <h3>Custom Components</h3>
+        <ul>
+            <li>st.components.v1.declare_component</li>
+            <li>st.components.v1.html</li>
+            <li>st.components.v1.iframe</li>
+        </ul>
+
+        <h3>Utilities</h3>
+        <ul>
+            <li>st.context</li>
+            <li>st.experimental_user</li>
+            <li>st.help</li>
+            <li>st.html</li>
+        </ul>
+    </section>
+
+</body>
+</html>

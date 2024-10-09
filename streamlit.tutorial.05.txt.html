@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Streamlit Example - Student Performance Dashboard</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            margin: 20px;
+        }
+        h1 {
+            color: #333;
+        }
+        h2 {
+            color: #555;
+        }
+        h3 {
+            color: #666;
+        }
+        pre {
+            background-color: #f4f4f4;
+            padding: 10px;
+            border-radius: 5px;
+        }
+        code {
+            background-color: #f4f4f4;
+            padding: 2px 4px;
+            border-radius: 3px;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Streamlit Example</h1>
+    <p>This time, we’ll build a <strong>"Student Performance Dashboard"</strong> that allows users to upload student data, filter by grades, visualize the results, and download reports.</p>
+
+    <pre><code>import streamlit as st
+import pandas as pd
+import numpy as np
+import matplotlib.pyplot as plt
+
+# App Title
+st.title("Student Performance Dashboard")
+
+# Sidebar for Input
+st.sidebar.header("Student Data Filters")
+
+# Text Input for a Teacher's Name
+teacher_name = st.sidebar.text_input("Enter your name (Teacher):")
+
+# File uploader to upload student data
+uploaded_file = st.sidebar.file_uploader("Upload a CSV with student data", type=["csv"])
+
+# Sidebar Slider to filter grades
+min_grade = st.sidebar.slider("Minimum Grade Filter", 0, 100, 50)
+
+# Sidebar Dropdown for Grade Level Selection
+grade_level = st.sidebar.selectbox("Select Grade Level", options=['All', 'Freshman', 'Sophomore', 'Junior', 'Senior'])
+
+# Button to confirm report generation
+generate_report = st.sidebar.button("Generate Performance Report")
+
+# Display simple welcome message using st.text()
+st.text(f"Hello {teacher_name}, please upload the student data and apply filters!")
+
+# Markdown for Instructions
+st.markdown("""
+### Instructions:
+1. Upload a CSV file containing student data (Name, Grade, Class, and Performance).
+2. Apply the filters to see how the student performance changes.
+3. Generate a report by clicking the button in the sidebar.
+""")
+
+# If file is uploaded, process the data
+if uploaded_file is not None:
+    data = pd.read_csv(uploaded_file)
+
+    # Filter data by grade and level
+    if grade_level != 'All':
+        data = data[data['Grade_Level'] == grade_level]
+    filtered_data = data[data['Grade'] >= min_grade]
+
+    # Display filtered data
+    st.subheader("Filtered Student Data")
+    st.dataframe(filtered_data)
+
+    # Static Table View
+    st.subheader("Static Table of Student Data")
+    st.table(filtered_data.head())
+
+    # Line Chart - Grade progression over time
+    st.subheader("Line Chart of Grades Over Time")
+    st.line_chart(filtered_data.set_index('Student_Name')['Grade'])
+
+    # Bar Chart - Distribution of Grades
+    st.subheader("Bar Chart of Grade Distribution")
+    st.bar_chart(filtered_data['Grade'].value_counts())
+
+    # Area Chart - Grade Trends
+    st.subheader("Area Chart of Performance")
+    st.area_chart(filtered_data.set_index('Student_Name')['Performance'])
+
+    # Display Summary using st.write()
+    st.subheader("Summary Statistics")
+    st.write(filtered_data.describe())
+
+    # If button is clicked, display a success message
+    if generate_report:
+        st.success("Performance report generated successfully!")
+
+    # Code block to show the process
+    st.code('''
+# Sample Code for processing student data
+import pandas as pd
+df = pd.read_csv('student_data.csv')
+filtered_data = df[df['Grade'] > 50]
+print(filtered_data)
+    ''')
+
+    # Display an image (dummy school logo) and play an audio file
+    st.subheader("School Logo and Anthem")
+    st.image("https://placekitten.com/300/200", caption="School Logo")
+    st.audio("https://www.soundhelix.com/examples/mp3/SoundHelix-Song-2.mp3")
+
+else:
+    # If no file is uploaded, show a default message
+    st.warning("Please upload a CSV file to get started.")
+
+# Footer text
+st.text("Thank you for using the Student Performance Dashboard.")
+    </code></pre>
+
+    <h2>Breakdown of Streamlit Functions Used:</h2>
+    <ol>
+        <li><code>st.write()</code> – Displays summaries and statistics of the student data.</li>
+        <li><code>st.title()</code> – Displays the app’s title.</li>
+        <li><code>st.header()</code> – Adds headers to different sections.</li>
+        <li><code>st.subheader()</code> – Adds smaller section headers (used for charts and filtered data).</li>
+        <li><code>st.text()</code> – Simple text to welcome the teacher and provide a footer.</li>
+        <li><code>st.markdown()</code> – Displays Markdown-formatted text to provide instructions.</li>
+        <li><code>st.code()</code> – Displays a block of formatted code as an example for the user.</li>
+        <li><code>st.dataframe()</code> – Displays an interactive table for the filtered student data.</li>
+        <li><code>st.table()</code> – Displays a static table with student data.</li>
+        <li><code>st.line_chart()</code> – Line chart showing student grades over time.</li>
+        <li><code>st.bar_chart()</code> – Bar chart for grade distribution.</li>
+        <li><code>st.area_chart()</code> – Area chart to show performance trends.</li>
+        <li><code>st.selectbox()</code> – Dropdown for selecting grade levels.</li>
+        <li><code>st.slider()</code> – Slider widget to filter student grades.</li>
+        <li><code>st.text_input()</code> – Text input box to capture the teacher’s name.</li>
+        <li><code>st.file_uploader()</code> – File uploader for uploading student data in CSV format.</li>
+        <li><code>st.button()</code> – Button to trigger report generation.</li>
+        <li><code>st.sidebar()</code> – Adds a sidebar for filtering and user inputs.</li>
+        <li><code>st.image()</code> – Displays a school logo (or any image).</li>
+        <li><code>st.audio()</code> – Plays an audio file (school anthem or any audio).</li>
+    </ol>
+
+    <h2>How It Works:</h2>
+    <ol>
+        <li><strong>Data Upload and Processing</strong>: Users can upload a CSV with student performance data (e.g., Name, Grade, Class, Performance).</li>
+        <li><strong>Filtering</strong>: Filters are applied based on grade and grade level using a <strong>slider</strong> and <strong>dropdown</strong>.</li>
+        <li><strong>Visualizations</strong>: The app displays various visualizations like line charts, bar charts, and area charts for student grades and performance.</li>
+        <li><strong>Report Generation</strong>: Users can click a button to simulate report generation and display a success message.</li>
+        <li><strong>Media Elements</strong>: A logo image and school anthem audio are displayed and played.</li>
+    </ol>
+
+    <p>This example demonstrates how to combine interactive filters, data visualizations, and media elements in a more practical dashboard-like scenario.</p>
+
+</body>
+</html>
